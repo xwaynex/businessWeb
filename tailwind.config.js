@@ -13,6 +13,20 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+      animation: {
+        "slide-left": "slideLeft 1s ease-in-out forwards",
+        "fade-up": "fadeUp 1.5s ease-out forwards",
+      },
+      keyframes: {
+        slideLeft: {
+          "0%": { opacity: "0", transform: "translateX(-10px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        fadeUp: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
     },
     screens: {
       xs: "480px",

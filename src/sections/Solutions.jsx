@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef  } from "react";
 import { FaDatabase, FaTools, FaCloud, FaShieldAlt } from "react-icons/fa";
 import AIFlowchart from "../assets/img/AI_Project_Implementation_Steps.png";
 
@@ -6,6 +6,9 @@ const Solutions = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [showImagePopup, setShowImagePopup] = useState(false);
+  const [visibleCards, setVisibleCards] = useState([]);
+  const imageRef = useRef(null);
+  const [isImageVisible, setIsImageVisible] = useState(false);
 
   const solutionsData = [
     {
@@ -41,6 +44,44 @@ const Solutions = () => {
         "Our monitoring solutions ensure AI models remain accurate and effective over time. We use robust feedback loops to continuously improve performance and adapt to new challenges.",
     },
   ];
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.dataset.index, 10);
+          if (!visibleCards.includes(index)) {
+            setVisibleCards((prev) => [...prev, index]);
+          }
+        }
+      });
+    }, observerOptions);
+
+    const cardElements = document.querySelectorAll(".solution-card");
+    cardElements.forEach((el) => observer.observe(el));
+
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsImageVisible(true);
+        }
+      });
+    }, observerOptions);
+
+    if (imageRef.current) {
+      imageObserver.observe(imageRef.current);
+    }
+
+    return () => {
+      cardElements.forEach((el) => observer.unobserve(el));
+      if (imageRef.current) {
+        imageObserver.unobserve(imageRef.current);
+      }
+    };
+  }, [visibleCards]);
 
   const closePopup = () => {
     setShowPopup(false);
@@ -66,25 +107,35 @@ const Solutions = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {solutionsData.map((solution, index) => (
             <div
-              key={index}
-              className="bg-white shadow-md rounded-lg p-6 hover:scale-105 transition-transform duration-300 cursor-pointer"
-              onClick={() => {
-                setPopupContent(solution.details);
-                setShowPopup(true);
-              }}
-            >
-              {solution.icon}
-              <h3 className="text-xl font-semibold text-blue-600 mb-4">
-                {solution.title}
-              </h3>
-              <p className="text-gray-600">{solution.description}</p>
-            </div>
-          ))}
-        </div>
+            key={index}
+            data-index={index}
+            className={`solution-card bg-white shadow-md rounded-lg p-6 cursor-pointer transition-transform duration-700 ease-out transform ${
+              visibleCards.includes(index)
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+            onClick={() => {
+              setPopupContent(solution.details);
+              setShowPopup(true);
+            }}
+          >
+            {solution.icon}
+            <h3 className="text-xl font-semibold text-blue-600 mb-4">
+              {solution.title}
+            </h3>
+            <p className="text-gray-600">{solution.description}</p>
+          </div>
+        ))}
+      </div>
 
         {/* Flowchart */}
         <div
-          className="relative cursor-pointer"
+          ref={imageRef}
+          className={`relative cursor-pointer transition-transform duration-700 ease-out transform ${
+            isImageVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
           onClick={() => setShowImagePopup(true)}
         >
           {/* Image Wrapper */}
@@ -148,12 +199,12 @@ const Solutions = () => {
               className="w-full max-w-4xl mx-auto object-contain"
             />
             {/* Close Button */}
-            {/* <button
+            <button
               className="absolute top-4 right-4 px-4 py-2 bg-red-600 text-white rounded-md"
               onClick={closePopup}
             >
               Close
-            </button> */}
+            </button>
           </div>
         </div>
       )}

@@ -50,53 +50,61 @@ const Resources = () => {
   const [sliderRef] = useKeenSlider({
     loop: true,
     mode: "free-snap",
+    breakpoints: {
+      "(min-width: 640px)": {
+        slides: { perView: 2, spacing: 15 },
+      },
+      "(min-width: 1024px)": {
+        slides: { perView: 3, spacing: 15 },
+      },
+    },
     slides: {
-      perView: 3,
-      spacing: 15,
+      perView: 1,
+      spacing: 10,
     },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
   });
 
+
   return (
     <section id="resources" className="bg-gray-100 py-16">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
             Insights & Resources
           </h2>
-          <p className="text-gray-600 mt-4">
+          <p className="text-gray-600 mt-2 sm:mt-4 text-sm sm:text-base">
             Explore the latest trends in AI development, data management, and lifecycle optimization.
           </p>
         </div>
 
         {/* Carousel */}
-        <div ref={sliderRef} className="keen-slider relative">
+        <div ref={sliderRef} className="keen-slider">
           {resources.map((resource) => (
             <div
               key={resource.id}
               className="keen-slider__slide bg-white shadow-lg rounded-lg overflow-hidden"
             >
               <div className="overflow-hidden group">
-                  
-                  <a href={resource.link} >
-                <img
-                  src={resource.image}
-                  alt={resource.title}
-                  className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
-                />
+                <a href={resource.link}>
+                  <img
+                    src={resource.image}
+                    alt={resource.title}
+                    className="w-full h-40 sm:h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
+                  />
                 </a>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-md sm:text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors">
                   <a href={resource.link}>{resource.title}</a>
                 </h3>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-xs sm:text-sm text-gray-500 mt-2">
                   {resource.date} • {resource.comments} Comments
                 </p>
-                <p className="text-gray-600 mt-4">
+                <p className="text-sm sm:text-base text-gray-600 mt-3">
                   {resource.description}
                 </p>
               </div>
@@ -120,8 +128,8 @@ const Resources = () => {
         </div>
 
         {/* View More Button */}
-        <div className="text-center mt-12">
-          <button className="px-8 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-transform transform hover:scale-105">
+        <div className="text-center mt-10">
+          <button className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-transform transform hover:scale-105">
             View More Feed
           </button>
         </div>
