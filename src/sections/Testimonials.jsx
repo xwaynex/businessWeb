@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaArrowLeft, FaArrowRight, FaQuoteLeft, FaShieldAlt, FaHeartbeat, /* FaMicroscope */ FaHandshake } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaQuoteLeft,
+  FaShieldAlt,
+  FaHeartbeat,
+  /* FaMicroscope */ FaHandshake,
+} from "react-icons/fa";
 // import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Client1 from "../assets/img/Bot3.png";
 import Client2 from "../assets/img/Bot5.png";
@@ -63,14 +70,15 @@ const TestimonialsAndCaseStudies = () => {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
   };
-  
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
   };
 
   const nextCaseStudy = () => {
@@ -78,145 +86,153 @@ const TestimonialsAndCaseStudies = () => {
   };
 
   const prevCaseStudy = () => {
-    setCurrentCaseStudy((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
+    setCurrentCaseStudy(
+      (prev) => (prev - 1 + caseStudies.length) % caseStudies.length
+    );
   };
 
   useEffect(() => {
     const metrics = caseStudies[currentCaseStudy].metrics;
     const keys = Object.keys(metrics);
-  
+
     // Initialize animation state
     const initialMetrics = keys.reduce((acc, key) => {
       acc[key] = 0;
       return acc;
     }, {});
-  
+
     setAnimatedMetrics(initialMetrics);
-  
+
     const interval = setInterval(() => {
       setAnimatedMetrics((prevMetrics) => {
         const updatedMetrics = { ...prevMetrics };
         let done = true;
-  
+
         keys.forEach((key) => {
           if (updatedMetrics[key] < metrics[key]) {
             updatedMetrics[key] += 1; // Increment metric value
             done = false;
           }
         });
-  
+
         if (done) clearInterval(interval); // Stop interval when all metrics reach their target
-  
+
         return updatedMetrics;
       });
     }, 30);
-  
+
     return () => clearInterval(interval);
   }, [currentCaseStudy]);
-  
 
   return (
-    <section className="bg-gray-100 py-16">
-  {/* Section Heading */}
-  <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-    Success Stories: Transforming Businesses with AI
-  </h2>
-  <div className="container mx-auto px-6 relative lg:h-[600px]">
-    {/* Responsive Container */}
-    <div className="flex flex-col lg:block gap-6">
-      {/* Case Studies */}
-      <div className="lg:absolute lg:top-4 lg:left-4 max-w-md mx-auto lg:mx-0">
-      <motion.div
-    className="relative bg-blue-600 text-white rounded-lg shadow-lg p-8"
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.1 }}
-    variants={fadeInUp}
-  >
-        <div className="relative bg-blue-600 text-white rounded-lg shadow-lg p-8">
-          {/* Icon and Title */}
-          <div className="text-center mb-4">
-            <IconComponent size={40} className="mx-auto mb-2" />
-            <h3 className="text-3xl font-bold">{caseStudies[currentCaseStudy].title}</h3>
+    <section className="bg-gray-100 dark:bg-primary py-16">
+      {/* Section Heading */}
+      <h2 className="text-3xl md:text-4xl font-bold text-center dark:text-textDark text-gray-800 mb-12">
+        Success Stories: Transforming Businesses with AI
+      </h2>
+      <div className="container mx-auto px-6 relative lg:h-[600px]">
+        {/* Responsive Container */}
+        <div className="flex flex-col lg:block gap-6">
+          {/* Case Studies */}
+          <div className="lg:absolute lg:top-4 lg:left-4 max-w-md mx-auto lg:mx-0">
+            <motion.div
+              className="relative bg-blue-600  text-white w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={fadeInUp}
+            >
+              <div className="relative bg-blue-600 dark:bg-tertiary text-white rounded-lg shadow-lg p-8">
+                {/* Icon and Title */}
+                <div className="text-center mb-4">
+                  <IconComponent size={40} className="mx-auto mb-2 dark:text-[#915eff] " />
+                  <h3 className="text-3xl font-bold">
+                    {caseStudies[currentCaseStudy].title}
+                  </h3>
+                </div>
+                <p className="mb-6">
+                  {caseStudies[currentCaseStudy].description}
+                </p>
+                <ul>
+                  {Object.entries(animatedMetrics).map(([key, value]) => (
+                    <li key={key} className="text-lg font-semibold">
+                      {key.replace(/([A-Z])/g, " $1")}: <span>{value}%</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="absolute inset-0 flex justify-between items-center px-4">
+                  <button
+                    onClick={prevCaseStudy}
+                    className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
+                  >
+                    <FaArrowLeft size={24} />
+                  </button>
+                  <button
+                    onClick={nextCaseStudy}
+                    className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
+                  >
+                    <FaArrowRight size={24} />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
-          <p className="mb-6">{caseStudies[currentCaseStudy].description}</p>
-          <ul>
-            {Object.entries(animatedMetrics).map(([key, value]) => (
-              <li key={key} className="text-lg font-semibold">
-                {key.replace(/([A-Z])/g, " $1")}: <span>{value}%</span>
-              </li>
-            ))}
-          </ul>
-          <div className="absolute inset-0 flex justify-between items-center px-4">
-            <button
-              onClick={prevCaseStudy}
-              className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
+
+          {/* Testimonials */}
+          <div className="lg:absolute lg:bottom-4 lg:right-4 max-w-lg mx-auto lg:mx-0">
+            {/* Section Heading */}
+            <h2 className="text-3xl md:text-4xl font-bold dark:text-textDark text-center text-gray-800 mb-12">
+              What Our Clients Say
+            </h2>
+            <motion.div
+              className="relative bg-blue-600 text-white w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={fadeInUp}
             >
-              <FaArrowLeft size={24} />
-            </button>
-            <button
-              onClick={nextCaseStudy}
-              className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
-            >
-              <FaArrowRight size={24} />
-            </button>
+              <div className="relative bg-blue-600 dark:bg-tertiary  text-white rounded-lg shadow-lg p-8">
+                <div className="absolute top-4 left-4  text-4xl opacity-20">
+                  <FaQuoteLeft />
+                </div>
+                <div className="flex justify-center -mt-16">
+                  <img
+                    src={testimonials[currentTestimonial].image}
+                    alt={testimonials[currentTestimonial].name}
+                    className="w-24 h-24 rounded-full border-4 dark:border-[#915eff] border-white shadow-md"
+                  />
+                </div>
+                <p className="text-lg text-center mt-6 italic">
+                  "{testimonials[currentTestimonial].feedback}"
+                </p>
+                <div className="text-center mt-6">
+                  <p className="font-bold">
+                    {testimonials[currentTestimonial].name}
+                  </p>
+                  <p className="text-sm text-gray-200">
+                    {testimonials[currentTestimonial].role}
+                  </p>
+                </div>
+                <div className="absolute inset-0 flex justify-between items-center px-4">
+                  <button
+                    onClick={prevTestimonial}
+                    className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
+                  >
+                    <FaArrowLeft size={24} />
+                  </button>
+                  <button
+                    onClick={nextTestimonial}
+                    className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
+                  >
+                    <FaArrowRight size={24} />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </motion.div>
       </div>
-
-      {/* Testimonials */}
-      <div className="lg:absolute lg:bottom-4 lg:right-4 max-w-lg mx-auto lg:mx-0">
-         {/* Section Heading */}
-         <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-          What Our Clients Say
-        </h2>
-        <motion.div
-    className="relative bg-blue-600 text-white rounded-lg shadow-lg p-8"
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.1 }}
-    variants={fadeInUp}
-  >
-        <div className="relative bg-blue-600 text-white rounded-lg shadow-lg p-8">
-          <div className="absolute top-4 left-4 text-4xl opacity-20">
-            <FaQuoteLeft />
-          </div>
-          <div className="flex justify-center -mt-16">
-            <img
-              src={testimonials[currentTestimonial].image}
-              alt={testimonials[currentTestimonial].name}
-              className="w-24 h-24 rounded-full border-4 border-white shadow-md"
-            />
-          </div>
-          <p className="text-lg text-center mt-6 italic">
-            "{testimonials[currentTestimonial].feedback}"
-          </p>
-          <div className="text-center mt-6">
-            <p className="font-bold">{testimonials[currentTestimonial].name}</p>
-            <p className="text-sm text-gray-200">{testimonials[currentTestimonial].role}</p>
-          </div>
-          <div className="absolute inset-0 flex justify-between items-center px-4">
-            <button
-              onClick={prevTestimonial}
-              className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
-            >
-              <FaArrowLeft size={24} />
-            </button>
-            <button
-              onClick={nextTestimonial}
-              className="text-white opacity-50 hover:opacity-100 hover:text-gray-300 focus:outline-none transition-opacity duration-200"
-            >
-              <FaArrowRight size={24} />
-            </button>
-          </div>
-        </div>
-        </motion.div>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </section>
   );
 };
 

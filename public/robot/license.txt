@@ -1,0 +1,11 @@
+Model Information:
+* title:	Robot
+* source:	https://sketchfab.com/3d-models/robot-2872b9d25b894e8bb494c069207c4802
+* author:	cyborgin (https://sketchfab.com/cyborgin)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Robot" (https://sketchfab.com/3d-models/robot-2872b9d25b894e8bb494c069207c4802) by cyborgin (https://sketchfab.com/cyborgin) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

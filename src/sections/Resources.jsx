@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
@@ -69,11 +69,11 @@ const Resources = () => {
 
 
   return (
-    <section id="resources" className="bg-gray-100 py-16">
+    <section id="resources" className="bg-gray-100 dark:bg-primary py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl dark:text-[#915eff] font-bold text-gray-800">
             Insights & Resources
           </h2>
           <p className="text-gray-600 mt-2 sm:mt-4 text-sm sm:text-base">
@@ -86,7 +86,7 @@ const Resources = () => {
           {resources.map((resource) => (
             <div
               key={resource.id}
-              className="keen-slider__slide bg-white shadow-lg rounded-lg overflow-hidden"
+              className="keen-slider__slide dark:bg-tertiary  bg-white shadow-lg rounded-lg overflow-hidden"
             >
               <div className="overflow-hidden group">
                 <a href={resource.link}>
@@ -98,13 +98,13 @@ const Resources = () => {
                 </a>
               </div>
               <div className="p-4 sm:p-6">
-                <h3 className="text-md sm:text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+                <h3 className="text-md sm:text-lg font-semibold dark:text-[#915eff] text-gray-800 hover:text-blue-600 transition-colors">
                   <a href={resource.link}>{resource.title}</a>
                 </h3>
-                <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                <p className="text-xs sm:text-sm dark:text-textDark text-gray-500 mt-2">
                   {resource.date} • {resource.comments} Comments
                 </p>
-                <p className="text-sm sm:text-base text-gray-600 mt-3">
+                <p className="text-sm sm:text-base dark:text-textDark text-gray-600 mt-3">
                   {resource.description}
                 </p>
               </div>
@@ -120,7 +120,7 @@ const Resources = () => {
               onClick={() => sliderRef.current?.moveToIdx(idx)}
               className={`w-3 h-3 rounded-full mx-1 ${
                 currentSlide === idx
-                  ? "bg-blue-600"
+                  ? "bg-blue-600 dark:bg-[#915eff]"
                   : "bg-gray-400 hover:bg-gray-600"
               }`}
             />
@@ -129,7 +129,7 @@ const Resources = () => {
 
         {/* View More Button */}
         <div className="text-center mt-10">
-          <button className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-transform transform hover:scale-105">
+          <button className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 dark:bg-[#915eff] text-white rounded-lg shadow hover:bg-blue-700 transition-transform transform hover:scale-105">
             View More Feed
           </button>
         </div>
