@@ -12,6 +12,7 @@
 		#11101d 91.61%
 	);
 	--card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+  --light-glow: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
 }
 
 * {
@@ -422,9 +423,37 @@ body, html {
 }
 
 
+
 /* Hide specific columns on screens smaller than 1024px */
 @media (max-width: 1024px) {
   .hide-on-small-screen {
     display: none;
   }
 }
+
+
+/* Infinite scroll animation */
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.partners-carousel {
+  display: flex;
+  animation: slideLeftToRight 20s linear infinite;
+}
+
+.partners-carousel img {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .partners-carousel {
+    animation-duration: 15s; /* Speed up on smaller screens */
+  }
+}
+

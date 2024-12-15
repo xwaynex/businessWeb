@@ -4,6 +4,9 @@ import emailjs from "emailjs-com";
 import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
 import { slideIn } from "../utils/motion";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import {StarsCanvas} from "../components"
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -58,7 +61,18 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="bg-gray-100 dark:bg-primary py-16">
+    <>
+     {/* Navbar */}
+     <div className="relative transition-all duration-500">
+        <div className="bg-hero-pattern-light dark:bg-hero-pattern-dark bg-cover bg-no-repeat bg-center">
+          <Navbar />
+        </div>
+      </div>
+    <div className="relative">
+        {/* StarsCanvas as background */}
+        <StarsCanvas />
+
+    <section id="contact" className="bg-secondary dark:bg-primary py-16">
     
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-blue-600 dark:text-[#915eff] mb-8">
@@ -164,6 +178,9 @@ const Contact = () => {
         </div>
       </div>
     </section>
+    </div>
+    <Footer/>
+    </>
   );
 };
 

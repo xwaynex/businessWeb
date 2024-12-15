@@ -125,7 +125,7 @@ const TestimonialsAndCaseStudies = () => {
   }, [currentCaseStudy]);
 
   return (
-    <section className="bg-gray-100 dark:bg-primary py-16">
+    <section className="bg-secondary dark:bg-primary py-16">
       {/* Section Heading */}
       <h2 className="text-3xl md:text-4xl font-bold text-center dark:text-textDark text-gray-800 mb-12">
         Success Stories: Transforming Businesses with AI

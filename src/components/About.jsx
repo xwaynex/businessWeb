@@ -54,7 +54,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="bg-gray-100 text-gray-800 py-16 dark:bg-primary dark:text-textDark">
+    <section id="about" className="bg-secondary text-gray-800 py-16 dark:bg-primary dark:text-textDark">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div

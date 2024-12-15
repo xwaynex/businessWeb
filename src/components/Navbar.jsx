@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { FaSun, FaMoon } from "react-icons/fa";
 
@@ -11,20 +12,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white dark:bg-primary bg-center dark:bg-cover dark:bg-center  text-gray-800 dark:text-textDark shadow-md w-full z-10">
+    <nav className="dark:text-white text-dimWhite shadow-md w-full z-10">
       <div className="container mx-auto flex justify-between items-center h-16 px-6">
-        <a
-          href="/"
-          className="text-2xl font-bold text-blue-600 dark:text-[#915eff]"
+        <Link
+          to="/"
+          className="text-2xl font-bold text-dimWhite dark:text-darkHeader"
         >
           AI Solutions
-        </a>
-
+        </Link>
         <div className="md:hidden space-x-4">
           <button
             onClick={toggleMenu}
             aria-label="Toggle Menu"
-            className="relative z-20"
+            className="relative z-20 text-dimWhite dark:text-darkHeader"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,56 +60,68 @@ const Navbar = () => {
             className="focus:outline-none"
           >
             {theme === "light" ? (
-              <FaMoon className="h-6 w-6 text-gray-600 dark:text-white" />
+              <FaMoon className="h-6 w-6 text-dimWhite dark:text-white hover:text-white" />
             ) : (
-              <FaSun className="h-6 w-6 text-yellow-500" />
+              <FaSun className="h-6 w-6 text-darkHeader" />
             )}
           </button>
         </div>
 
         <ul className="hidden md:flex space-x-6">
           <li>
-            <a href="#home" className="hover:text-blue-600">
+            <Link
+              to="/"
+              className="hover:text-white dark:hover:text-darkHeader"
+            >
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#about" className="hover:text-blue-600">
+            <a
+              href="#about"
+              className="hover:text-white dark:hover:text-darkHeader"
+            >
               About
             </a>
           </li>
           <li>
-            <a href="#solutions" className="hover:text-blue-600">
+            <a
+              href="#solutions"
+              className="hover:text-white dark:hover:text-darkHeader"
+            >
               Solutions
             </a>
           </li>
           <li>
-            <a href="#contact" className="hover:text-blue-600">
+            <Link
+              to="/contact"
+              className="hover:text-white dark:hover:text-darkHeader"
+            >
               Contact
-            </a>
+            </Link>
           </li>
 
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             aria-label="Toggle Theme"
-            className="focus:outline-none"
+            className="focus:outline-none "
           >
             {theme === "light" ? (
-              <FaMoon className="h-6 w-6 text-gray-600 dark:text-white" />
+              <FaMoon className="h-6 w-6 text-dimWhite dark:text-textDark hover:text-white" />
             ) : (
-              <FaSun className="h-6 w-6 text-yellow-500" />
+              <FaSun className="h-6 w-6 text-darkHeader" />
             )}
           </button>
         </ul>
 
         {isMenuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white dark:bg-primary text-gray-800 dark:text-textDark shadow-md transition-all duration-500 ease-in-out md:hidden z-20">
+          <div className="absolute top-16 left-0 w-full bg-hero-pattern-light dark:bg-hero-pattern-dark text-dimWhite dark:text-textDark shadow-md transition-all duration-1000 delay-500 ease-in-out md:hidden z-20">
             <ul className="flex flex-col space-y-4 p-6">
               <li>
-                <a href="#home" className="hover:text-blue-600">
+                <Link to="/" className="hover:text-blue-600">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#about" className="hover:text-blue-600">
@@ -122,9 +134,9 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-blue-600">
+                <Link to="/contact" className="hover:text-blue-600">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

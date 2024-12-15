@@ -1,4 +1,5 @@
-import { useState, } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
@@ -9,7 +10,7 @@ const resources = [
     image: "https://picsum.photos/160/160?random=867",
     description:
       "Discover the emerging trends shaping the future of artificial intelligence and how they impact businesses.",
-    link: "/article-1",
+    link: "/news/1",
     date: "Dec 8, 2024",
     comments: 12,
   },
@@ -19,7 +20,7 @@ const resources = [
     image: "https://robohash.org/laboratory.png?size=160x160",
     description:
       "Learn how efficient data management can enhance machine learning lifecycle optimization.",
-    link: "/whitepaper-1",
+    link: "/news/2",
     date: "Dec 7, 2024",
     comments: 8,
   },
@@ -29,7 +30,7 @@ const resources = [
     image: "https://picsum.photos/160/160?random=5",
     description:
       "Dive deep into our latest research publications on optimizing the AI lifecycle for better outcomes.",
-    link: "/research-1",
+    link: "/news/3",
     date: "Dec 6, 2024",
     comments: 15,
   },
@@ -39,7 +40,7 @@ const resources = [
     image: "https://robohash.org/data.png?size=160x160",
     description:
       "Explore the role of data in driving AI solutions and overcoming challenges in modern systems.",
-    link: "/article-4",
+    link: "/news/4",
     date: "Dec 5, 2024",
     comments: 20,
   },
@@ -67,17 +68,17 @@ const Resources = () => {
     },
   });
 
-
   return (
-    <section id="resources" className="bg-gray-100 dark:bg-primary py-16">
+    <section id="resources" className="bg-secondary dark:bg-primary py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl dark:text-[#915eff] font-bold text-gray-800">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl dark:text-darkHeader font-bold text-gray-800">
             Insights & Resources
           </h2>
           <p className="text-gray-600 mt-2 sm:mt-4 text-sm sm:text-base">
-            Explore the latest trends in AI development, data management, and lifecycle optimization.
+            Explore the latest trends in AI development, data management, and
+            lifecycle optimization.
           </p>
         </div>
 
@@ -89,17 +90,17 @@ const Resources = () => {
               className="keen-slider__slide dark:bg-tertiary  bg-white shadow-lg rounded-lg overflow-hidden"
             >
               <div className="overflow-hidden group">
-                <a href={resource.link}>
+                <Link to={resource.link}>
                   <img
                     src={resource.image}
                     alt={resource.title}
                     className="w-full h-40 sm:h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
                   />
-                </a>
+                </Link>
               </div>
               <div className="p-4 sm:p-6">
                 <h3 className="text-md sm:text-lg font-semibold dark:text-[#915eff] text-gray-800 hover:text-blue-600 transition-colors">
-                  <a href={resource.link}>{resource.title}</a>
+                  <Link to={resource.link}>{resource.title}</Link>
                 </h3>
                 <p className="text-xs sm:text-sm dark:text-textDark text-gray-500 mt-2">
                   {resource.date} • {resource.comments} Comments
@@ -129,9 +130,11 @@ const Resources = () => {
 
         {/* View More Button */}
         <div className="text-center mt-10">
-          <button className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 dark:bg-[#915eff] text-white rounded-lg shadow hover:bg-blue-700 transition-transform transform hover:scale-105">
-            View More Feed
-          </button>
+          <Link to="/news">
+            <button className="px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 dark:bg-[#915eff] text-white rounded-lg shadow hover:bg-blue-700 transition-transform transform hover:scale-105">
+              View More Feed
+            </button>
+          </Link>
         </div>
       </div>
     </section>

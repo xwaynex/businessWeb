@@ -14,35 +14,44 @@ import { textVariant } from "../utils/motion";
 
 
 // SolutionsCard Component with Prop Validation
-const SolutionsCard = ({ solution }) => {
+const SolutionsCard = ({ solution, isDarkMode }) => {
+  const backgroundColor = isDarkMode ? "#1d1836" : "#2563eb"; // Dark or Light Background
+  const textColor = isDarkMode ? "#fff" : "#FFFFFFB2"; // Text Color for Dark or Light Mode
+
   return (
     <VerticalTimelineElement
       contentStyle={{
-        background: "#1d1836",
-        color: "#fff",
+        background: backgroundColor,
+        color: textColor,
         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
       }}
-      contentArrowStyle={{ borderRight: "7px solid  #232631" }}
+      contentArrowStyle={{
+        borderRight: `7px solid ${isDarkMode ? "#232631" : "#2563eb"}`,
+      }}
       date={solution.description}
       iconStyle={{ background: solution.iconBg }}
       icon={
         <div className="flex justify-center items-center w-full h-full">
           <div className="text-[3rem] lg:text-[4rem] w-[500px] h-[500px]">
-          {solution.icon}
+            {solution.icon}
           </div>
         </div>
       }
     >
       <div>
-        <h3 className="text-white text-[24px] font-bold">{solution.title}</h3>
-        {/* <p className="text-secondary text-[16px] font-semibold" style={{ margin: 0 }}>
+        <h3 className={`text-[24px] font-bold ${isDarkMode ? "text-white" : "text-dimWhite"}`}>
           {solution.title}
-        </p> */}
+        </h3>
       </div>
 
       <ul className="mt-5 list-disc ml-5 space-y-2">
         {solution.points.map((point, index) => (
-          <li key={`solution-point-${index}`} className="text-white-100 text-[14px] pl-1 tracking-wider">
+          <li
+            key={`solution-point-${index}`}
+            className={`text-[14px] pl-1 tracking-wider ${
+              isDarkMode ? "text-white-100" : "text-dimWhite"
+            }`}
+          >
             {point}
           </li>
         ))}
@@ -59,7 +68,9 @@ SolutionsCard.propTypes = {
     description: PropTypes.string.isRequired,
     points: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
+  isDarkMode: PropTypes.bool.isRequired, // Add prop validation for dark mode
 };
+
 
 const Solutions = () => {
   // const [showPopup, setShowPopup] = useState(false);
@@ -111,7 +122,7 @@ const Solutions = () => {
 
   const solutionsData = [
     {
-      icon: <FaDatabase className="text-blue-600 dark:text-[#915eff] text-4xl mb-4 mx-auto" />,
+      icon: <FaDatabase className="text-blue-600 dark:text-darkHeader text-4xl mb-4 mx-auto" />,
       title: "Data Preparation",
       iconBg: "#383E56",
       description:
@@ -120,7 +131,7 @@ const Solutions = () => {
         "Data preparation is crucial for AI lifecycle success. Our process ensures structured, clean data for enhanced model performance. We utilize advanced preprocessing, validation, and transformation techniques to optimize datasets."],
     },
     {
-      icon: <FaTools className="text-blue-600 dark:text-[#915eff] text-4xl mb-4 mx-auto" />,
+      icon: <FaTools className="text-blue-600 dark:text-darkHeader text-4xl mb-4 mx-auto" />,
       title: "Model Development",
       iconBg: "#E6DEDD",
       description:
@@ -129,7 +140,7 @@ const Solutions = () => {
         "Our model development involves selecting the right algorithms, optimizing hyperparameters, and tailoring solutions to meet business goals. We leverage cutting-edge tools to deliver high-performance AI systems."],
     },
     {
-      icon: <FaCloud className="text-blue-600 dark:text-[#915eff] text-4xl mb-4 mx-auto" />,
+      icon: <FaCloud className="text-blue-600 dark:text-darkHeader text-4xl mb-4 mx-auto" />,
       title: "Deployment",
       iconBg: "#383E56",
       description:
@@ -138,7 +149,7 @@ const Solutions = () => {
         "We ensure seamless integration of AI models into existing workflows. Our approach minimizes downtime and delivers faster deployment for immediate business impact."],
     },
     {
-      icon: <FaShieldAlt className="text-blue-600 dark:text-[#915eff] text-4xl mb-4 mx-auto" />,
+      icon: <FaShieldAlt className="text-blue-600 dark:text-darkHeader text-4xl mb-4 mx-auto" />,
       title: "Monitoring",
       iconBg: "#E6DEDD",
       description:
@@ -157,13 +168,13 @@ const Solutions = () => {
         className={`${
           isDarkMode
             ? "bg-primary"
-            : "bg-gradient-to-r from-blue-500 to-indigo-600"
-        } text-dimWhite py-16`}
+            : "bg-hero-pattern-light"
+        } text-dimWhite py-16 bg-cover bg-no-repeat bg-center`}
       >
         <div className="container mx-auto px-6 text-center">
           {/* Section Header */}
           <motion.div variants={textVariant()}>
-            <h2 className="text-3xl md:text-4xl dark:text-[#915eff] font-bold mb-8">
+            <h2 className="text-3xl md:text-4xl dark:text-darkHeader font-bold mb-8">
               End-to-End AI Solutions
             </h2>
             <p className="text-lg mb-12">
@@ -178,6 +189,7 @@ const Solutions = () => {
             <SolutionsCard
               key={`solution-${index}`}
               solution={solution}
+              isDarkMode={isDarkMode} // Pass the state to child component
             />
           ))}
         </VerticalTimeline>
@@ -202,7 +214,7 @@ const Solutions = () => {
               />
             </div>
             {/* Caption */}
-            <p className="text-sm text-white mt-4">
+            <p className="text-sm dark:text-textDark text-dimWhite mt-4">
               AI Lifecycle: From Data to Deployment
             </p>
           </div>

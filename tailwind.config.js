@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "hero-pattern-light": "url('/src/assets/light-hero-bg.png')", // Light mode hero background
+        "hero-pattern-light": "radial-gradient(circle, rgba(14, 14, 129, 0.8), rgba(0, 25, 115, 0.7), rgba(0, 30, 98, 0.6), rgba(10, 32, 81, 0.5), rgba(22, 33, 62, 0.4)), url('/src/assets/background-paint-still-life.jpg')", // Light mode hero background
         "hero-pattern-dark": "url('/src/assets/herobg.png')", // Dark mode hero background
       },
       colors: {
@@ -21,6 +21,7 @@ export default {
          dimBlue: "rgba(9, 151, 124, 0.1)",
          textDark: "#ffffff", // Text for dark mode
          textLight: "#000000", // Text for light mode
+         darkHeader: "#915eff"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
